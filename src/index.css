@@ -5,8 +5,12 @@
 @import url('https://fonts.cdnfonts.com/css/raleway-5');
 @import url('https://fonts.cdnfonts.com/css/poppins');
 
-h1{
-  font-family: 'Raleway', sans-serif;
+html{
+  font-family: 'Poppins', sans-serif;
+}
+.hero-header
+{
+  font-family:"Poppins", sans-serif;
 }
 .hero
 {
