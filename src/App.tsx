@@ -1,15 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
-import { Bars } from "react-loader-spinner";
+import { CirclesWithBar} from "react-loader-spinner";
 import Aos from "aos";
 import { motion, useAnimation } from "framer-motion";
 import { IoArrowDownCircleOutline } from "react-icons/io5";
 import quote from  "./assets/quote.png"
 import send from "./assets/send.png"
+import arrow from "./assets/arrow.png"
+import profile from "./assets/profile-pic.png"
 
 const App = () => {
+  const skillLinks =[
+    {
+      id: 1,
+      desc: "All",
+    },
+    
+    {
+      id: 2,
+      desc: "Frontend",
+    },
+    {
+      id: 3,
+      desc: "Backend",
+    },
+    {
+      id: 4,
+      desc: "UI/UX",
+    },
+
+
+  ]
   const [isLoading, setIsLoading] = useState(true);
   const [scrollDown, setScrollDown]= useState(false);
+  const [readMore, setReadMore]= useState(true)
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -57,7 +81,7 @@ const handleSetScrollDown =()=>
       {isLoading ? (
         // Loading state
         <div className="flex justify-center items-center h-screen">
-          <Bars color="#74f437" height={50} width={50} />
+          <CirclesWithBar color="#74f437" height={50} width={50} />
         </div>
       ) : (
         // Content loaded
@@ -118,7 +142,8 @@ const handleSetScrollDown =()=>
           {/* // About Section */}
         {
           scrollDown ? (
-<section id="about" className="bg-background h-screen snap-start">
+            <>
+<section id="about" className="bg-background h-screen snap-start relative ">
               <motion.img
               initial={{
                 opacity: 0,
@@ -166,9 +191,70 @@ const handleSetScrollDown =()=>
                   <img src={send} alt="" className="w-5 ml-2"/>
                 </a>
               </button>
+              <div className="absolute top-96 right-32">
+              <img src={arrow} alt="" className="w-48 px-6"/>
               </div>
-             
+              </div>
         </section>
+        <section className="bg-background flex flex-row justify-center items-center px-12">
+          <div className="w-1/2">
+                <motion.img
+                initial={{
+                  opacity: 0,
+                  x: -100
+                }}
+                animate={{
+                  opacity: 1,
+                  x:0
+                }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.9 
+                }}
+                 src={profile} alt="" className="w-96"
+                />
+          </div>
+          <div className="w-1/2 space-y-4">
+            <h1 className="text-3xl font-bold text-primary">Dedicated, Enthusiastic , Problem-Solver</h1>
+            <p className="text-white leading-normal font-light text-md">
+            Hey there! I'm Selasie Sepenu, a dedicated and enthusiastic frontend engineer with a passion for crafting seamless and innovative digital experiences. My journey in the tech world began with a fascination for problem-solving and a commitment to turning ideas into reality through code.
+
+As a practitioner of the MERN stack (MongoDB, Express.js, React.js, Node.js) and proficient in Firebase and AWS technologies, I thrive on the dynamic and ever-evolving nature of web development. My goal is not just to write code but to architect robust and scalable solutions that make a meaningful impact.
+
+            </p>
+            {
+              !readMore ?
+              (
+                <p className="text-white leading-normal font-light text-md">
+                  With a solid foundation in computer science, coupled with hands-on experience in building web applications, I constantly seek to push the boundaries of what's possible. Whether it's collaborating on team projects or taking the lead on individual endeavors, I relish the opportunity to tackle challenges head-on and learn something new in the process.
+
+Beyond the lines of code, you'll find me exploring the latest tech trends, contributing to open-source projects, and always striving to stay at the forefront of emerging technologies. I believe in the power of continuous learning and the importance of a strong community, both of which are integral to my growth as a developer.
+
+I'm excited about the potential of technology to transform industries and enhance user experiences. Let's connect and explore how my skills and passion can contribute to your next project or team!
+                </p>
+              ):
+              <p></p>
+            }
+          {
+            readMore ?(
+              <button className="text-primary border  border-primary rounded-full w-40 h-12 hover:bg-primary hover:text-secondary hover:font-bold" onClick={()=> setReadMore(false)}>Read More</button>
+            ):
+            <button className="text-primary border  border-primary rounded-full w-40 h-12  hover:bg-primary hover:text-secondary hover:font-bold" onClick={()=> setReadMore(true)} >See Less</button>
+          }
+            </div>
+        </section>
+        <section className="bg-background px-12 space-y-10">
+          <h1 className="font-bold text-3xl pt-60 text-white">My Tech Stack</h1>
+          <div className="flex flex-row justify-center items-center gap-10 py-10">
+            {
+              skillLinks.map((skillLink)=>
+              (
+                <button className="text-primary border border-primary rounded-full w-36 h-12 hover:bg-primary hover:text-secondary hover:font-bold" key={skillLink.id}>{skillLink.desc}</button>
+              ))
+            }
+          </div>
+        </section>
+        </>
           ): 
           (
             <section></section>
